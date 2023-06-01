@@ -1,0 +1,100 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Site</title>
+</head>
+<body style="background-color: blue;">
+<main>
+    <div class="card">
+        <h1 style="color: white; text-align: center; ">Paste Link</h1>
+    <input type="text" size="113" style="text-align: center; " >
+    <button type="submit">Submit</button>
+    <PRE id="out">Your URL will appear here...</PRE>
+    </div>
+    
+</main>
+    
+    <input type="text" size="83" height="35344" >
+    <script src="index.js"></script> -->
+</body>
+</html>
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="2.css">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="header">
+        Create Short URL
+    </div>
+    <div class="form">
+        <div class="form-element">
+            <label for="longurl">Enter Link</label>
+            <input type="text" id="longurl" placeholder="site.com">
+        </div>
+        <div class="form-element">
+            <button id="create-short-url"> Create Short URL</button>
+        </div>
+        <div class="result">
+            <a href="#" id="shortUrl"></a>
+        </div>
+        <div class="list">
+            <h2>Shorten Links</h2>
+            <table id="list_urls">
+                <thead>
+                    <tr>
+                        <th>LongURL</th>
+                        <th>ShortURL</th>
+                        <th>Count</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>#</td>
+                        <td>#</td>
+                        <td>#</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div> 
+    <script type="text/javascript">
+        document.querySelector('#create-short-url').addEventListener("click", function(){
+            let longurl = document.querySelector("#longurl").value.trim();
+            if(longurl.length == 0){
+                alert("Enter Valid Url");
+                return;
+            } else if(!(longurl.startsWith("http://") || longurl.startsWith("https://"))){
+                alert("Enter Valid Url");
+                return;
+            }
+            fetch('http://localhost:5000/api/create-short-url',{
+                method:"POST",
+                body:JSON.stringify({
+                    longurl:longurl
+                }),
+                headers:{
+                    "Content-type":"application/json; charset=UTF-8"
+                }
+            }).then(function(response){
+                return response.json();
+            }).then(function(data){
+                console.log(data);
+            }).catch(function(error){
+                alert("Something Went Wrong");
+            })
+        })
+    </script>
+</body>
+</html>
